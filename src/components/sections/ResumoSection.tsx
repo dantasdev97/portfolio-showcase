@@ -1,5 +1,6 @@
-import { Briefcase, GraduationCap, Code2, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { Briefcase, GraduationCap, Code2, CheckCircle, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -56,6 +57,54 @@ const CircularProgress = ({ pct, label }: { pct: number; label: string }) => {
   );
 };
 
+interface ResumoCardProps {
+  id: string;
+  title: string;
+  icon: React.ElementType;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}
+
+const ResumoCard = ({ id, title, icon: Icon, children, defaultOpen = false }: ResumoCardProps) => {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <motion.div custom={0} variants={fadeUp} className="green-border-left pl-6">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full mb-4 group"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center">
+            <Icon className="text-primary" size={20} />
+          </div>
+          <h3 className="text-xl font-heading font-semibold">{title}</h3>
+        </div>
+        <ChevronDown
+          size={20}
+          className={`text-muted-foreground transition-transform duration-300 hidden lg:block ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {/* Always visible on mobile, collapsible on desktop */}
+      <div className="lg:hidden">{children}</div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden hidden lg:block"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
 const ResumoSection = () => {
   return (
     <section id="resumo" className="scroll-mt-32 lg:scroll-mt-8">
@@ -69,14 +118,7 @@ const ResumoSection = () => {
         <div className="h-0.5 bg-primary/30 mb-8 green-border-top" />
 
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Experiência */}
-          <motion.div custom={0} variants={fadeUp} className="green-border-left pl-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center">
-                <Briefcase className="text-primary" size={20} />
-              </div>
-              <h3 className="text-xl font-heading font-semibold">Experiência</h3>
-            </div>
+          <ResumoCard id="experiencia" title="Experiência" icon={Briefcase} defaultOpen>
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-semibold text-primary">2022–2024</p>
@@ -91,48 +133,28 @@ const ResumoSection = () => {
                 <p className="text-sm text-muted-foreground mt-1">Desenvolvimento de sites e aplicações web para clientes diversos.</p>
               </div>
             </div>
-          </motion.div>
+          </ResumoCard>
 
-          {/* Cursos */}
-          <motion.div custom={1} variants={fadeUp} className="green-border-left pl-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center">
-                <GraduationCap className="text-primary" size={20} />
-              </div>
-              <h3 className="text-xl font-heading font-semibold">Cursos</h3>
-            </div>
+          <ResumoCard id="cursos" title="Cursos" icon={GraduationCap}>
             <div>
               <p className="text-sm font-semibold text-primary">2019–2020</p>
               <p className="font-medium mt-1">Análise e Desenvolvimento de Sistemas</p>
               <p className="text-sm text-muted-foreground">Barra Funda – São Paulo</p>
               <p className="text-sm text-muted-foreground mt-1">Soluções personalizadas para o sucesso do seu negócio.</p>
             </div>
-          </motion.div>
+          </ResumoCard>
         </div>
 
-        {/* Codificação + Conhecimentos */}
         <div className="grid md:grid-cols-2 gap-8 mt-10">
-          <motion.div custom={2} variants={fadeUp}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center">
-                <Code2 className="text-primary" size={20} />
-              </div>
-              <h3 className="text-xl font-heading font-semibold">Codificação</h3>
-            </div>
+          <ResumoCard id="codificacao" title="Codificação" icon={Code2}>
             <div className="grid grid-cols-2 gap-6">
               {codingSkills.map((s) => (
                 <CircularProgress key={s.name} pct={s.pct} label={s.name} />
               ))}
             </div>
-          </motion.div>
+          </ResumoCard>
 
-          <motion.div custom={3} variants={fadeUp}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center">
-                <CheckCircle className="text-primary" size={20} />
-              </div>
-              <h3 className="text-xl font-heading font-semibold">Conhecimentos</h3>
-            </div>
+          <ResumoCard id="conhecimentos" title="Conhecimentos" icon={CheckCircle}>
             <ul className="space-y-3">
               {conhecimentos.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -141,11 +163,10 @@ const ResumoSection = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </ResumoCard>
         </div>
       </motion.div>
 
-      {/* Tecnologias Marquee */}
       <TechMarquee />
     </section>
   );

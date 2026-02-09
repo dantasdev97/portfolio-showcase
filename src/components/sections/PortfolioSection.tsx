@@ -1,40 +1,36 @@
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const categories = ["Todos", "Código", "WordPress", "Design"];
-
-const projects = [
-  { title: "Barbearia Of Brothers", category: "WordPress", tags: ["WordPress", "Elementor"], desc: "Site profissional para barbearia com agendamento online." },
-  { title: "Mens Concept Barbershop", category: "WordPress", tags: ["WordPress", "Elementor"], desc: "Landing page para agendamento e serviços." },
-  { title: "Dashboard Analytics", category: "Código", tags: ["React", "TypeScript"], desc: "Painel de controle com gráficos e métricas." },
-  { title: "E-commerce UI", category: "Design", tags: ["Figma", "UI/UX"], desc: "Design de interface para loja virtual." },
-];
+import { useNavigate } from "react-router-dom";
+import { categories, projects } from "@/data/projects";
 
 const PortfolioSection = () => {
   const [active, setActive] = useState("Todos");
   const filtered = active === "Todos" ? projects : projects.filter((p) => p.category === active);
+  const navigate = useNavigate();
 
   return (
     <section id="portfolio" className="scroll-mt-32 lg:scroll-mt-8">
       <div className="glass-card p-6 md:p-8">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <h2 className="text-2xl font-heading font-bold">Portfólio</h2>
-          <div className="flex gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActive(cat)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                  active === cat
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        </div>
+
+        {/* Category filters - scrollable on mobile */}
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActive(cat)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all whitespace-nowrap shrink-0 ${
+                active === cat
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
         </div>
 
         <div className="grid sm:grid-cols-2 gap-5">
@@ -47,11 +43,23 @@ const PortfolioSection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="rounded-xl overflow-hidden bg-secondary/50 border border-border hover:border-primary/30 transition-all group"
+                onClick={() => navigate(`/projeto/${project.id}`)}
+                className="rounded-xl overflow-hidden bg-secondary/50 border border-border hover:border-primary/30 transition-all group cursor-pointer"
               >
                 <div className="h-[140px] bg-muted/50 flex items-center justify-center relative overflow-hidden">
-                  <div className="w-20 h-20 rounded-full border-2 border-primary/30 flex items-center justify-center">
-                    <ExternalLink className="text-primary" size={24} />
+                  {project.gallery[0] ? (
+                    <img
+                      src={project.gallery[0].url}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 rounded-full border-2 border-primary/30 flex items-center justify-center">
+                      <ExternalLink className="text-primary" size={24} />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-3">
+                    <span className="text-xs font-medium text-primary">Ver detalhes →</span>
                   </div>
                 </div>
                 <div className="p-4">

@@ -1,11 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import { Home, User, Monitor, BookOpen, Mail } from "lucide-react";
+import { Home, User, Monitor, Mail } from "lucide-react";
 
 const navItems = [
   { id: "resumo", label: "Resumo", icon: Home },
   { id: "sobre", label: "Sobre", icon: User },
   { id: "portfolio", label: "Portfólio", icon: Monitor },
-  { id: "blog", label: "Blog", icon: BookOpen },
   { id: "contato", label: "Contato", icon: Mail },
 ];
 
@@ -41,7 +40,6 @@ export const useActiveSection = () => {
   return active;
 };
 
-// Desktop sidebar (fixed)
 const PortfolioSidebar = ({ activeSection }: PortfolioSidebarProps) => {
   return (
     <nav className="fixed left-6 top-1/2 -translate-y-1/2 z-50 glass-card p-3 flex-col gap-1 w-[90px] hidden lg:flex">
@@ -66,11 +64,9 @@ const PortfolioSidebar = ({ activeSection }: PortfolioSidebarProps) => {
   );
 };
 
-// Mobile top nav (like reference image)
 export const MobileNav = ({ activeSection }: PortfolioSidebarProps) => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 lg:hidden glass-card rounded-none border-x-0 border-t-0">
-      {/* Profile header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
         <div className="w-10 h-10 rounded-full border-2 border-primary bg-secondary flex items-center justify-center shrink-0">
           <span className="text-xs font-heading font-bold text-primary">AD</span>
@@ -80,7 +76,6 @@ export const MobileNav = ({ activeSection }: PortfolioSidebarProps) => {
           <p className="text-xs text-primary">Desenvolvedor Full Stack</p>
         </div>
       </div>
-      {/* Nav icons */}
       <div className="flex justify-around px-2 py-2">
         {navItems.map((item) => {
           const isActive = activeSection === item.id;

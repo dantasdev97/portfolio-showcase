@@ -77,4 +77,12 @@
   .green-border-top {
     border-top: 2px solid hsl(145 100% 45%);
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

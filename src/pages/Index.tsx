@@ -3,7 +3,6 @@ import ProfileCard from "@/components/ProfileCard";
 import ResumoSection from "@/components/sections/ResumoSection";
 import SobreSection from "@/components/sections/SobreSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
-import BlogSection from "@/components/sections/BlogSection";
 import ContatoSection from "@/components/sections/ContatoSection";
 
 const Index = () => {
@@ -11,21 +10,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Desktop sidebar */}
       <PortfolioSidebar activeSection={activeSection} />
-
-      {/* Mobile top nav */}
       <MobileNav activeSection={activeSection} />
 
       <div className="flex justify-center">
-        {/* Desktop: profile card fixed on left */}
         <div className="hidden lg:block fixed left-[130px] top-1/2 -translate-y-1/2 z-40">
           <ProfileCard />
         </div>
 
-        {/* Main scrollable content */}
         <main className="w-full max-w-[700px] space-y-5 pt-32 lg:pt-8 pb-12 px-4 lg:ml-[480px]">
-          {/* Mobile profile card */}
           <div className="lg:hidden">
             <ProfileCard />
           </div>
@@ -33,7 +26,6 @@ const Index = () => {
           <ResumoSection />
           <SobreSection />
           <PortfolioSection />
-          <BlogSection />
           <ContatoSection />
         </main>
       </div>
