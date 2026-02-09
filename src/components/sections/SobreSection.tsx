@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Code, Server, Globe, ShieldCheck } from "lucide-react";
+import { useRef } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -17,6 +18,8 @@ const services = [
 ];
 
 const SobreSection = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
     <section id="sobre" className="scroll-mt-32 lg:scroll-mt-8">
       <motion.div
@@ -62,14 +65,18 @@ const SobreSection = () => {
           Meus Serviços
         </motion.h3>
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        {/* Horizontal scroll for services */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto pb-3 -mx-2 px-2 snap-x snap-mandatory scrollbar-hide"
+        >
           {services.map((service, i) => (
             <motion.div
               key={service.title}
               custom={i + 3}
               variants={fadeUp}
               whileHover={{ scale: 1.02, borderColor: "hsl(145 100% 45% / 0.4)" }}
-              className="p-5 rounded-xl bg-secondary/30 border border-border transition-all group cursor-default"
+              className="p-5 rounded-xl bg-secondary/30 border border-border transition-all group cursor-default min-w-[260px] sm:min-w-[280px] shrink-0 snap-start"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-9 h-9 rounded-lg bg-primary/15 flex items-center justify-center">
