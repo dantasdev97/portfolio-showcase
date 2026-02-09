@@ -8,7 +8,7 @@ const ProfileCard = () => {
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
-      className="glass-card overflow-hidden w-full max-w-[320px] shrink-0"
+      className="glass-card overflow-hidden w-full lg:max-w-[320px] shrink-0"
     >
       {/* Banner */}
       <div className="h-[160px] relative overflow-hidden">
