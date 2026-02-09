@@ -3,6 +3,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { useState } from "react";
+import TechIcon from "@/components/TechIcon";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,9 +15,9 @@ const ProjectDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Projeto n√£o encontrado.</p>
+          <p className="text-muted-foreground mb-4">Projeto n„o encontrado.</p>
           <button onClick={() => navigate("/")} className="text-primary font-medium">
-            Voltar ao in√≠cio
+            Voltar ao inÌcio
           </button>
         </div>
       </div>
@@ -72,7 +73,7 @@ const ProjectDetail = () => {
                     >
                       {item.type === "video" ? (
                         <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                          ‚ñ∂ Video
+                          ? VÌdeo
                         </div>
                       ) : (
                         <img src={item.url} alt={item.alt || ""} className="w-full h-full object-cover" />
@@ -109,9 +110,7 @@ const ProjectDetail = () => {
 
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
             <p>{project.fullDescription}</p>
-            {project.challenges && (
-              <p className="text-sm italic">{project.challenges}</p>
-            )}
+            {project.challenges && <p className="text-sm italic">{project.challenges}</p>}
           </div>
 
           {/* Technologies */}
@@ -123,7 +122,7 @@ const ProjectDetail = () => {
                   key={tech.name}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/60 border border-border"
                 >
-                  <span className="text-lg">{tech.icon}</span>
+                  <TechIcon src={tech.iconSrc} alt={tech.name} className="w-5 h-5" />
                   <span className="text-sm font-medium">{tech.name}</span>
                 </div>
               ))}

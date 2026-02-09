@@ -19,9 +19,7 @@ const ProfileCard = () => {
       {/* Avatar */}
       <div className="flex flex-col items-center -mt-14 relative z-10 px-6 pb-6">
         <div className="w-24 h-24 rounded-full border-[3px] border-primary bg-secondary flex items-center justify-center overflow-hidden mb-4">
-          <div className="w-full h-full bg-muted flex items-center justify-center text-2xl font-heading font-bold text-primary">
-            AD
-          </div>
+          <img src="/perfil.jpg" alt="Foto de perfil" className="w-full h-full object-cover" />
         </div>
 
         <h1 className="text-xl font-heading font-semibold">Augusto Dantas</h1>
