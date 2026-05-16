@@ -13,39 +13,41 @@ export interface Project {
   technologies: { name: string; iconSrc: string }[];
 }
 
-export const categories = ["Todos", "Código", "WordPress", "Design"];
+export const categories = ["Todos", "Código", "Vídeos"];
 
 export const projects: Project[] = [
   {
     id: "barbearia-of-brothers",
     title: "Barbearia Of Brothers",
-    category: "WordPress",
-    tags: ["WordPress", "Elementor"],
+    category: "Código",
+    tags: ["Next.js", "Supabase", "SEO"],
     liveUrl: "https://barbeariaofbrothers.pt",
-    desc: "Site profissional para barbearia com agendamento online.",
+    desc: "Presença digital completa com agendamento, SEO local e painel de admin.",
     fullDescription:
-      "O site da Barbearia Of Brothers é um site institucional para uma barbearia localizada no coração de Leiria, Portugal. Promove serviços como cortes de cabelo modernos e tradicionais, cuidados com a barba e design de sobrancelhas, destacando a experiência de mais de 10 anos do líder Vitor Chagas e uma equipa de três profissionais especializados. O foco é oferecer uma experiência única e relaxante, utilizando produtos de alta qualidade, com uma chamada à ação para agendar uma visita.",
+      "Transformámos um site Next.js 16 em branco numa presença digital completa para a Barbearia Of Brothers em Leiria. O projeto cobre desde o detalhe visual — animações premium com Framer Motion em todos os botões e scroll horizontal nos produtos para mobile — até à infraestrutura robusta com Supabase (PostgreSQL, Storage, Auth) e deploy contínuo na Vercel.\n\nImplementámos SEO local avançado: sitemap dinâmico, metadados por página, schema BarberShop com avaliações e morada, e título otimizado para \"Barbearia em Leiria\". O painel de admin suporta upload de vídeos para o hero com barra de progresso em tempo real, sem os limites do servidor. A conformidade RGPD foi tratada a sério — o GA4 só ativa após consentimento, com banner moderno e páginas legais em português.\n\nBotões de partilha social (WhatsApp, Facebook, Pinterest) em cada serviço, com imagem e nome pré-preenchidos. Para fechar, uma auditoria de segurança completa corrigiu open redirect no login, adicionou todos os headers HTTP incluindo Content-Security-Policy, e levou a nota do site de D para A+ no SecurityHeaders.com.",
     challenges:
-      "O principal desafio foi adaptar um sistema de agendamento intuitivo ao WordPress, garantindo que o site fosse rápido e otimizado para SEO local em Leiria.",
+      "O maior desafio técnico foi o upload de vídeos de grandes dimensões para o hero, que causava erro 413 no servidor. Resolvemos integrando o upload diretamente no Supabase Storage com feedback visual em tempo real para o administrador.",
     gallery: [
       { type: "image", url: "https://images.unsplash.com/photo-1585747860019-8083262d40e8?w=800", alt: "Interior da barbearia" },
       { type: "image", url: "https://images.unsplash.com/photo-1503951914875-452b59e3bb21?w=800", alt: "Corte de cabelo" },
     ],
     technologies: [
-      { name: "WordPress", iconSrc: techIcons.WordPress },
-      { name: "Elementor", iconSrc: techIcons.Elementor },
-      { name: "Node.js", iconSrc: techIcons["Node.js"] },
+      { name: "Next.js", iconSrc: techIcons["Next.js"] },
+      { name: "TypeScript", iconSrc: techIcons.TypeScript },
+      { name: "Tailwind", iconSrc: techIcons.Tailwind },
+      { name: "Supabase", iconSrc: techIcons.Supabase },
+      { name: "Framer Motion", iconSrc: techIcons["Framer Motion"] },
     ],
   },
   {
     id: "mimiart",
     title: "MimiArt",
-    category: "WordPress",
-    tags: ["WordPress", "WooCommerce", "Design"],
+    category: "Código",
+    tags: ["React", "Vite", "E-commerce"],
     liveUrl: "https://mimiart.pt",
     desc: "Loja online de arte com galeria e encomendas personalizadas.",
     fullDescription:
-      "Plataforma de e-commerce desenvolvida em WordPress com WooCommerce para uma artista visual portuguesa. O site combina uma loja online com galeria de obras originais, sistema de encomendas personalizadas e apresentação do trabalho artístico. O design é clean e elegante, valorizando as obras sem distrações, com navegação intuitiva e checkout otimizado para conversão. Inclui galeria filtrada por coleção, página de produto com zoom de alta resolução e formulário de encomenda à medida.",
+      "Plataforma de e-commerce para uma artista visual portuguesa, desenvolvida em React com Vite. O site combina uma loja de obras originais com galeria filtrada por coleção, sistema de encomendas personalizadas e checkout otimizado para conversão. O design é clean e elegante, valorizando as obras sem distrações, com navegação intuitiva e página de produto com zoom de alta resolução.",
     challenges:
       "O desafio foi criar uma experiência visual que valorizasse a arte sem sobrecarregar a interface, mantendo a loja funcional e o processo de checkout simples para todos os perfis de utilizador.",
     gallery: [
@@ -53,59 +55,11 @@ export const projects: Project[] = [
       { type: "image", url: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800", alt: "Loja de arte online" },
     ],
     technologies: [
-      { name: "WordPress", iconSrc: techIcons.WordPress },
-      { name: "Elementor", iconSrc: techIcons.Elementor },
-      { name: "Figma", iconSrc: techIcons.Figma },
-    ],
-  },
-  {
-    id: "mens-concept-barbershop",
-    title: "Mens Concept Barbershop",
-    category: "WordPress",
-    tags: ["WordPress", "Elementor"],
-    desc: "Landing page para agendamento e serviços.",
-    fullDescription:
-      "Landing page moderna e responsiva desenvolvida para a Mens Concept Barbershop, focada em conversão e agendamento online. O design prioriza a apresentação dos serviços e a facilidade de navegação para os clientes.",
-    gallery: [
-      { type: "image", url: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800", alt: "Barbershop" },
-    ],
-    technologies: [
-      { name: "WordPress", iconSrc: techIcons.WordPress },
-      { name: "Elementor", iconSrc: techIcons.Elementor },
-    ],
-  },
-  {
-    id: "dashboard-analytics",
-    title: "Dashboard Analytics",
-    category: "Código",
-    tags: ["React", "TypeScript"],
-    desc: "Painel de controle com gráficos e métricas.",
-    fullDescription:
-      "Dashboard completo desenvolvido em React com TypeScript, apresentando gráficos interativos, métricas em tempo real e filtros avançados. A interface foi projetada para facilitar a análise de dados de forma intuitiva e eficiente.",
-    gallery: [
-      { type: "image", url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800", alt: "Dashboard" },
-    ],
-    technologies: [
       { name: "React", iconSrc: techIcons.React },
       { name: "TypeScript", iconSrc: techIcons.TypeScript },
       { name: "Tailwind", iconSrc: techIcons.Tailwind },
-      { name: "Recharts", iconSrc: techIcons.Recharts },
-    ],
-  },
-  {
-    id: "ecommerce-ui",
-    title: "E-commerce UI",
-    category: "Design",
-    tags: ["Figma", "UI/UX"],
-    desc: "Design de interface para loja virtual.",
-    fullDescription:
-      "Design completo de interface para uma loja virtual, incluindo ecrãs de catálogo, produto, carrinho e checkout. Foco em usabilidade, acessibilidade e uma experiência de compra fluida.",
-    gallery: [
-      { type: "image", url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800", alt: "E-commerce" },
-    ],
-    technologies: [
+      { name: "Node.js", iconSrc: techIcons["Node.js"] },
       { name: "Figma", iconSrc: techIcons.Figma },
-      { name: "Photoshop", iconSrc: techIcons.Photoshop },
     ],
   },
 ];

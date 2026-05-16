@@ -16,6 +16,8 @@ export const techIcons = {
   Express: "https://cdn.simpleicons.org/express/ffffff",
   Recharts: "https://cdn.simpleicons.org/recharts/ffffff",
   Photoshop: "https://cdn.simpleicons.org/adobephotoshop/ffffff",
+  Supabase: "https://cdn.simpleicons.org/supabase/ffffff",
+  "Framer Motion": "https://cdn.simpleicons.org/framer/ffffff",
 } as const;
 
 export type TechName = keyof typeof techIcons;
