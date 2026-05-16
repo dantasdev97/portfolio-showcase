@@ -58,6 +58,12 @@ const ProjectDetail = () => {
                   src={project.gallery[activeImg]?.url}
                   alt={project.gallery[activeImg]?.alt || project.title}
                   className="w-full h-[300px] md:h-[400px] object-cover"
+                  onError={(e) => {
+                    const fallback = project.gallery[activeImg]?.fallback;
+                    if (fallback && e.currentTarget.src !== fallback) {
+                      e.currentTarget.src = fallback;
+                    }
+                  }}
                 />
               )}
 
@@ -76,7 +82,17 @@ const ProjectDetail = () => {
                           ▶ Vídeo
                         </div>
                       ) : (
-                        <img src={item.url} alt={item.alt || ""} className="w-full h-full object-cover" />
+                        <img
+                          src={item.url}
+                          alt={item.alt || ""}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const fallback = item.fallback;
+                            if (fallback && e.currentTarget.src !== fallback) {
+                              e.currentTarget.src = fallback;
+                            }
+                          }}
+                        />
                       )}
                     </button>
                   ))}

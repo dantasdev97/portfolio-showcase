@@ -65,6 +65,12 @@ const PortfolioSection = () => {
                       src={project.gallery[0].url}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        const fallback = project.gallery[0].fallback;
+                        if (fallback && e.currentTarget.src !== fallback) {
+                          e.currentTarget.src = fallback;
+                        }
+                      }}
                     />
                   ) : (
                     <div className="w-20 h-20 rounded-full border-2 border-primary/30 flex items-center justify-center">
