@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code, Server, Globe, ShieldCheck, Search, Image, ShoppingCart, Database } from "lucide-react";
+import { Globe, ShieldCheck, Search, Image, ShoppingCart, Database } from "lucide-react";
 import { useRef } from "react";
 
 const fadeUp = {
@@ -11,14 +11,14 @@ const fadeUp = {
 };
 
 const aiSkills = [
-  { label: "Claude AI / API" },
-  { label: "MCP (Model Context Protocol)" },
-  { label: "n8n Automação" },
-  { label: "OpenAI API" },
-  { label: "Supabase Vector DB" },
-  { label: "Prompt Engineering" },
-  { label: "AI Agents & Workflows" },
-  { label: "LangChain" },
+  "Claude AI / API",
+  "MCP (Model Context Protocol)",
+  "n8n Automação",
+  "OpenAI API",
+  "Supabase Vector DB",
+  "Prompt Engineering",
+  "AI Agents & Workflows",
+  "LangChain",
 ];
 
 const services = [
@@ -97,10 +97,10 @@ const SobreSection = () => {
 
         <motion.div custom={1} variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
           {[
-            { label: "Idade", value: "28" },
+            { label: "Idade",        value: "28" },
             { label: "Nacionalidade", value: "Brasil" },
-            { label: "Residência", value: "Leiria, Portugal" },
-            { label: "Freelancer", value: "Disponível" },
+            { label: "Residência",   value: "Leiria, Portugal" },
+            { label: "Freelancer",   value: "Disponível" },
           ].map((item) => (
             <div key={item.label} className="p-3 rounded-lg bg-secondary/40 border border-border">
               <p className="text-xs text-muted-foreground">{item.label}</p>
@@ -111,74 +111,79 @@ const SobreSection = () => {
 
         {/* AI & Automation Skills */}
         <motion.div custom={2} variants={fadeUp} className="mt-10">
-          <h3 className="text-xl font-heading font-semibold mb-4">
-            Skills em IA &amp; Automação
-          </h3>
+          <h3 className="text-xl font-heading font-semibold mb-4">Skills em IA &amp; Automação</h3>
           <div className="flex flex-wrap gap-2">
             {aiSkills.map((skill, i) => (
               <motion.span
-                key={skill.label}
+                key={skill}
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06, duration: 0.3 }}
-                whileHover={{ scale: 1.06, borderColor: "hsl(145 100% 45% / 0.7)" }}
-                className="px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/25 cursor-default transition-colors"
+                whileHover={{ scale: 1.06 }}
+                className="px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/25 cursor-default"
               >
-                {skill.label}
+                {skill}
               </motion.span>
             ))}
           </div>
         </motion.div>
 
-        {/* Services with pricing */}
+        {/* Services — horizontal scroll with gradient fade */}
         <motion.h3 custom={3} variants={fadeUp} className="text-xl font-heading font-semibold mt-10 mb-5">
           Planos &amp; Serviços
         </motion.h3>
 
-        <div
-          ref={scrollRef}
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
-        >
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              custom={i + 4}
-              variants={fadeUp}
-              whileHover={{ scale: 1.02, borderColor: "hsl(145 100% 45% / 0.4)" }}
-              className="p-5 rounded-xl bg-secondary/30 border border-border transition-all group cursor-default flex flex-col"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
-                  <service.icon className="text-primary" size={18} />
-                </div>
-                <div>
-                  <h4 className="font-heading font-semibold text-sm">{service.title}</h4>
-                  <p className="text-primary font-bold text-xs mt-0.5">{service.price}</p>
-                </div>
-              </div>
-              <ul className="space-y-1.5 mt-1">
-                {service.items.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="text-primary text-[10px]">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <motion.a
-                href="#contato"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                className="mt-4 text-center text-xs font-semibold py-2 rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors block"
+        <div className="relative">
+          {/* Left fade */}
+          <div
+            className="absolute left-0 top-0 bottom-3 w-10 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to right, hsl(var(--card)), transparent)" }}
+          />
+          {/* Right fade */}
+          <div
+            className="absolute right-0 top-0 bottom-3 w-10 z-10 pointer-events-none"
+            style={{ background: "linear-gradient(to left, hsl(var(--card)), transparent)" }}
+          />
+
+          <div
+            ref={scrollRef}
+            className="flex gap-4 overflow-x-auto pb-3 -mx-6 px-6 scrollbar-hide snap-x snap-mandatory"
+          >
+            {services.map((service, i) => (
+              <motion.div
+                key={service.title}
+                custom={i + 4}
+                variants={fadeUp}
+                whileHover={{ scale: 1.03, borderColor: "hsl(145 100% 45% / 0.45)" }}
+                className="shrink-0 snap-start min-w-[210px] sm:min-w-[230px] p-5 rounded-2xl border border-border bg-secondary/30 transition-all flex flex-col gap-3"
               >
-                Saber Mais
-              </motion.a>
-            </motion.div>
-          ))}
+                {/* Icon + title row */}
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/15 flex items-center justify-center shrink-0">
+                    <service.icon className="text-primary" size={20} />
+                  </div>
+                  <h4 className="font-heading font-semibold text-sm leading-tight">{service.title}</h4>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-primary/20" />
+
+                {/* Price */}
+                <p className="text-primary font-bold text-base font-heading">{service.price}</p>
+
+                {/* Feature list */}
+                <ul className="space-y-2">
+                  {service.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-xs text-muted-foreground leading-snug">
+                      <span className="text-primary shrink-0 mt-0.5">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>

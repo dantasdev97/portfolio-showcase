@@ -1,10 +1,11 @@
 import { Home, User, Monitor, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const navItems = [
-  { id: "resumo", label: "Resumo", icon: Home },
-  { id: "sobre", label: "Sobre", icon: User },
-  { id: "portfolio", label: "Portfólio", icon: Monitor },
-  { id: "contato", label: "Contato", icon: Mail },
+  { id: "resumo",    label: "Resumo",    icon: Home },
+  { id: "sobre",     label: "Sobre",     icon: User },
+  { id: "portfolio", label: "PortfÃ³lio", icon: Monitor },
+  { id: "contato",   label: "Contato",   icon: Mail },
 ];
 
 interface PortfolioSidebarProps {
@@ -23,9 +24,11 @@ const PortfolioSidebar = ({ activeSection, onSelect }: PortfolioSidebarProps) =>
       {navItems.map((item) => {
         const isActive = activeSection === item.id;
         return (
-          <button
+          <motion.button
             key={item.id}
             onClick={() => onSelect(item.id)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className={`flex flex-col items-center gap-1.5 py-3 px-2 rounded-lg transition-all duration-200 ${
               isActive
                 ? "bg-primary/10 text-primary"
@@ -34,7 +37,7 @@ const PortfolioSidebar = ({ activeSection, onSelect }: PortfolioSidebarProps) =>
           >
             <item.icon size={22} />
             <span className="text-[11px] font-medium">{item.label}</span>
-          </button>
+          </motion.button>
         );
       })}
     </nav>
@@ -57,16 +60,24 @@ export const MobileNav = ({ activeSection, onSelect }: PortfolioSidebarProps) =>
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           return (
-            <button
+            <motion.button
               key={item.id}
               onClick={() => onSelect(item.id)}
-              className={`flex flex-col items-center gap-1 py-1.5 px-2 rounded-md transition-all ${
+              whileTap={{ scale: 0.88 }}
+              className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-lg transition-all duration-200 relative ${
                 isActive ? "text-primary" : "text-muted-foreground"
               }`}
             >
               <item.icon size={18} />
               <span className="text-[10px] font-medium">{item.label}</span>
-            </button>
+              {isActive && (
+                <motion.div
+                  layoutId="mobile-nav-indicator"
+                  className="absolute inset-0 rounded-lg bg-primary/10"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+            </motion.button>
           );
         })}
       </div>

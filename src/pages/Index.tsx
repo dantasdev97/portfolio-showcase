@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import PortfolioSidebar, { MobileNav } from "@/components/PortfolioSidebar";
 import ProfileCard from "@/components/ProfileCard";
 import ResumoSection from "@/components/sections/ResumoSection";
@@ -6,28 +6,57 @@ import SobreSection from "@/components/sections/SobreSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import ContatoSection from "@/components/sections/ContatoSection";
 
+const SECTIONS = ["resumo", "sobre", "portfolio", "contato"];
+
 const Index = () => {
   const [activeSection, setActiveSection] = useState("resumo");
 
+  // Track active section via IntersectionObserver on mobile
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 1023px)");
+    if (!mql.matches) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -75% 0px", threshold: 0 }
+    );
+
+    SECTIONS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const sectionContent = useMemo(() => {
     switch (activeSection) {
-      case "sobre":
-        return <SobreSection />;
-      case "portfolio":
-        return <PortfolioSection />;
-      case "contato":
-        return <ContatoSection />;
-      case "resumo":
-      default:
-        return <ResumoSection />;
+      case "sobre":    return <SobreSection />;
+      case "portfolio": return <PortfolioSection />;
+      case "contato":  return <ContatoSection />;
+      default:         return <ResumoSection />;
     }
   }, [activeSection]);
 
   const handleSelect = (id: string) => {
-    setActiveSection(id);
-    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+    if (window.innerWidth < 1024) {
+      // Mobile: smooth scroll to section with offset for fixed nav
       const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (el) {
+        const offset = 112;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: "smooth" });
+      }
+    } else {
+      // Desktop: switch section and scroll to top
+      setActiveSection(id);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -43,7 +72,16 @@ const Index = () => {
             <ProfileCard />
           </div>
 
-          <div className="space-y-5">
+          {/* Mobile: all sections stacked, scroll-driven */}
+          <div className="space-y-5 lg:hidden">
+            <ResumoSection />
+            <SobreSection />
+            <PortfolioSection />
+            <ContatoSection />
+          </div>
+
+          {/* Desktop: one section at a time */}
+          <div className="space-y-5 hidden lg:block">
             {sectionContent}
           </div>
         </div>
