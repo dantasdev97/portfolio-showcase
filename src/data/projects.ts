@@ -8,11 +8,12 @@ export interface Project {
   desc: string;
   fullDescription: string;
   challenges?: string;
+  liveUrl?: string;
   gallery: { type: "image" | "video"; url: string; alt?: string }[];
   technologies: { name: string; iconSrc: string }[];
 }
 
-export const categories = ["Todos", "CÛdigo", "WordPress", "Design"];
+export const categories = ["Todos", "C√≥digo", "WordPress", "Design"];
 
 export const projects: Project[] = [
   {
@@ -20,20 +21,41 @@ export const projects: Project[] = [
     title: "Barbearia Of Brothers",
     category: "WordPress",
     tags: ["WordPress", "Elementor"],
+    liveUrl: "https://barbeariaofbrothers.pt",
     desc: "Site profissional para barbearia com agendamento online.",
     fullDescription:
-      "O site da Barbearia Of Brothers È um site institucional para uma barbearia localizada no coraÁ„o de Leiria, Portugal. Ele promove serviÁos como cortes de cabelo (modernos e tradicionais), cuidados com a barba e design de sobrancelhas, destacando a experiÍncia de mais de 10 anos do lÌder, Vitor Chagas, e uma equipe de trÍs profissionais especializados. O foco È oferecer uma experiÍncia ˙nica e relaxante, utilizando produtos de alta qualidade, com uma chamada ‡ aÁ„o para agendar uma visita.",
-    challenges: "Desafios: Sites em WordPress podem ser limitados para funcionalidades mais complexas.",
+      "O site da Barbearia Of Brothers √© um site institucional para uma barbearia localizada no cora√ß√£o de Leiria, Portugal. Promove servi√ßos como cortes de cabelo modernos e tradicionais, cuidados com a barba e design de sobrancelhas, destacando a experi√™ncia de mais de 10 anos do l√≠der Vitor Chagas e uma equipa de tr√™s profissionais especializados. O foco √© oferecer uma experi√™ncia √∫nica e relaxante, utilizando produtos de alta qualidade, com uma chamada √† a√ß√£o para agendar uma visita.",
+    challenges:
+      "O principal desafio foi adaptar um sistema de agendamento intuitivo ao WordPress, garantindo que o site fosse r√°pido e otimizado para SEO local em Leiria.",
     gallery: [
-      { type: "image", url: "https://images.unsplash.com/photo-1585747860019-8083262d40e8?w=800", alt: "Barbearia interior" },
+      { type: "image", url: "https://images.unsplash.com/photo-1585747860019-8083262d40e8?w=800", alt: "Interior da barbearia" },
       { type: "image", url: "https://images.unsplash.com/photo-1503951914875-452b59e3bb21?w=800", alt: "Corte de cabelo" },
     ],
     technologies: [
       { name: "WordPress", iconSrc: techIcons.WordPress },
       { name: "Elementor", iconSrc: techIcons.Elementor },
-      { name: "MongoDB", iconSrc: techIcons.MongoDB },
-      { name: "Express", iconSrc: techIcons.Express },
       { name: "Node.js", iconSrc: techIcons["Node.js"] },
+    ],
+  },
+  {
+    id: "mimiart",
+    title: "MimiArt",
+    category: "WordPress",
+    tags: ["WordPress", "WooCommerce", "Design"],
+    liveUrl: "https://mimiart.pt",
+    desc: "Loja online de arte com galeria e encomendas personalizadas.",
+    fullDescription:
+      "Plataforma de e-commerce desenvolvida em WordPress com WooCommerce para uma artista visual portuguesa. O site combina uma loja online com galeria de obras originais, sistema de encomendas personalizadas e apresenta√ß√£o do trabalho art√≠stico. O design √© clean e elegante, valorizando as obras sem distra√ß√µes, com navega√ß√£o intuitiva e checkout otimizado para convers√£o. Inclui galeria filtrada por cole√ß√£o, p√°gina de produto com zoom de alta resolu√ß√£o e formul√°rio de encomenda √† medida.",
+    challenges:
+      "O desafio foi criar uma experi√™ncia visual que valorizasse a arte sem sobrecarregar a interface, mantendo a loja funcional e o processo de checkout simples para todos os perfis de utilizador.",
+    gallery: [
+      { type: "image", url: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800", alt: "Galeria de arte" },
+      { type: "image", url: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800", alt: "Loja de arte online" },
+    ],
+    technologies: [
+      { name: "WordPress", iconSrc: techIcons.WordPress },
+      { name: "Elementor", iconSrc: techIcons.Elementor },
+      { name: "Figma", iconSrc: techIcons.Figma },
     ],
   },
   {
@@ -41,9 +63,9 @@ export const projects: Project[] = [
     title: "Mens Concept Barbershop",
     category: "WordPress",
     tags: ["WordPress", "Elementor"],
-    desc: "Landing page para agendamento e serviÁos.",
+    desc: "Landing page para agendamento e servi√ßos.",
     fullDescription:
-      "Landing page moderna e responsiva desenvolvida para a Mens Concept Barbershop, focada em convers„o e agendamento online. O design prioriza a apresentaÁ„o dos serviÁos e a facilidade de navegaÁ„o para os clientes.",
+      "Landing page moderna e responsiva desenvolvida para a Mens Concept Barbershop, focada em convers√£o e agendamento online. O design prioriza a apresenta√ß√£o dos servi√ßos e a facilidade de navega√ß√£o para os clientes.",
     gallery: [
       { type: "image", url: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800", alt: "Barbershop" },
     ],
@@ -55,11 +77,11 @@ export const projects: Project[] = [
   {
     id: "dashboard-analytics",
     title: "Dashboard Analytics",
-    category: "CÛdigo",
+    category: "C√≥digo",
     tags: ["React", "TypeScript"],
-    desc: "Painel de controle com gr·ficos e mÈtricas.",
+    desc: "Painel de controle com gr√°ficos e m√©tricas.",
     fullDescription:
-      "Dashboard completo desenvolvido em React com TypeScript, apresentando gr·ficos interativos, mÈtricas em tempo real e filtros avanÁados. A interface foi projetada para facilitar a an·lise de dados de forma intuitiva e eficiente.",
+      "Dashboard completo desenvolvido em React com TypeScript, apresentando gr√°ficos interativos, m√©tricas em tempo real e filtros avan√ßados. A interface foi projetada para facilitar a an√°lise de dados de forma intuitiva e eficiente.",
     gallery: [
       { type: "image", url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800", alt: "Dashboard" },
     ],
@@ -77,7 +99,7 @@ export const projects: Project[] = [
     tags: ["Figma", "UI/UX"],
     desc: "Design de interface para loja virtual.",
     fullDescription:
-      "Design completo de interface para uma loja virtual, incluindo telas de cat·logo, produto, carrinho e checkout. Foco em usabilidade, acessibilidade e uma experiÍncia de compra fluida.",
+      "Design completo de interface para uma loja virtual, incluindo ecr√£s de cat√°logo, produto, carrinho e checkout. Foco em usabilidade, acessibilidade e uma experi√™ncia de compra fluida.",
     gallery: [
       { type: "image", url: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800", alt: "E-commerce" },
     ],

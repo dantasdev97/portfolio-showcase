@@ -13,7 +13,7 @@ const PortfolioSection = () => {
     <section id="portfolio" className="scroll-mt-32 lg:scroll-mt-8">
       <div className="glass-card p-6 md:p-8">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-          <h2 className="text-2xl font-heading font-bold">Portf�lio</h2>
+          <h2 className="text-2xl font-heading font-bold">Portfólio</h2>
         </div>
 
         {/* Category filters - scrollable on mobile */}
@@ -59,7 +59,7 @@ const PortfolioSection = () => {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-card/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-3">
-                    <span className="text-xs font-medium text-primary">Ver detalhes ?</span>
+                    <span className="text-xs font-medium text-primary">Ver detalhes →</span>
                   </div>
                 </div>
                 <div className="p-4">

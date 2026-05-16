@@ -18,9 +18,14 @@ const ProfileCard = () => {
 
       {/* Avatar */}
       <div className="flex flex-col items-center -mt-14 relative z-10 px-6 pb-6">
-        <div className="w-24 h-24 rounded-full border-[3px] border-primary bg-secondary flex items-center justify-center overflow-hidden mb-4">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="w-24 h-24 rounded-full border-[3px] border-primary bg-secondary flex items-center justify-center overflow-hidden mb-4"
+        >
           <img src="/perfil.jpg" alt="Foto de perfil" className="w-full h-full object-cover" />
-        </div>
+        </motion.div>
 
         <h1 className="text-xl font-heading font-semibold">Augusto Dantas</h1>
         <p className="text-sm mt-1">
@@ -32,30 +37,43 @@ const ProfileCard = () => {
         {/* Social Icons */}
         <div className="flex gap-3 mt-5">
           {[
-            { icon: Instagram, href: "#" },
-            { icon: Linkedin, href: "#" },
-            { icon: Github, href: "#" },
-          ].map(({ icon: Icon, href }, i) => (
-            <a
-              key={i}
+            { icon: Instagram, href: "#", label: "Instagram" },
+            { icon: Linkedin, href: "#", label: "LinkedIn" },
+            { icon: Github, href: "#", label: "GitHub" },
+          ].map(({ icon: Icon, href, label }) => (
+            <motion.a
+              key={label}
               href={href}
-              className="w-10 h-10 rounded-lg bg-secondary hover:bg-secondary/80 flex items-center justify-center text-foreground transition-colors"
+              whileHover={{ scale: 1.15, backgroundColor: "hsl(var(--primary) / 0.15)" }}
+              whileTap={{ scale: 0.9 }}
+              className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-foreground transition-colors"
             >
               <Icon size={18} />
-            </a>
+            </motion.a>
           ))}
         </div>
 
         {/* CTA Buttons */}
         <div className="flex gap-3 mt-5 w-full">
-          <button className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold hover:brightness-110 transition-all">
+          <motion.button
+            whileHover={{ scale: 1.04, boxShadow: "0 0 18px hsl(145 100% 45% / 0.35)" }}
+            whileTap={{ scale: 0.96 }}
+            className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold transition-all"
+          >
             <Download size={16} />
             Baixar CV
-          </button>
-          <button className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold hover:brightness-110 transition-all">
+          </motion.button>
+          <motion.a
+            href="https://wa.me/351913821065"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.04, boxShadow: "0 0 20px hsl(145 100% 45% / 0.45)" }}
+            whileTap={{ scale: 0.96 }}
+            className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold transition-all"
+          >
             <MessageCircle size={16} />
             WhatsApp
-          </button>
+          </motion.a>
         </div>
       </div>
     </motion.div>

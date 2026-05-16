@@ -15,9 +15,9 @@ const ProjectDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-muted-foreground mb-4">Projeto n„o encontrado.</p>
+          <p className="text-muted-foreground mb-4">Projeto n√£o encontrado.</p>
           <button onClick={() => navigate("/")} className="text-primary font-medium">
-            Voltar ao inÌcio
+            Voltar ao in√≠cio
           </button>
         </div>
       </div>
@@ -73,7 +73,7 @@ const ProjectDetail = () => {
                     >
                       {item.type === "video" ? (
                         <div className="w-full h-full bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                          ? VÌdeo
+                          ‚ñ∂ V√≠deo
                         </div>
                       ) : (
                         <img src={item.url} alt={item.alt || ""} className="w-full h-full object-cover" />
@@ -102,10 +102,17 @@ const ProjectDetail = () => {
                 ))}
               </div>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:brightness-110 transition-all shrink-0">
-              <ExternalLink size={16} />
-              Ver Projeto
-            </button>
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:brightness-110 transition-all shrink-0"
+              >
+                <ExternalLink size={16} />
+                Ver Projeto ao Vivo
+              </a>
+            )}
           </div>
 
           <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">

@@ -22,11 +22,15 @@ const codingSkills = [
 
 const conhecimentos = [
   "Desenvolvimento WordPress",
-  "Instalação de Hospedagem",
-  "Responsivo e pronto para dispositivos móveis",
-  "Serviços de publicidade",
+  "InstalaÃ§Ã£o de Hospedagem",
+  "Responsivo e pronto para dispositivos mÃ³veis",
+  "ServiÃ§os de publicidade",
   "HTML, CSS, jQuery",
   "Marketing de mecanismos de pesquisa",
+  "IntegraÃ§Ã£o de IA (Claude API, OpenAI)",
+  "MCP (Model Context Protocol)",
+  "AutomaÃ§Ã£o com n8n",
+  "Supabase & Bases de Dados Vetoriais",
 ];
 
 const CircularProgress = ({ pct, label }: { pct: number; label: string }) => {
@@ -123,22 +127,22 @@ const ResumoSection = () => {
         <div className="h-0.5 bg-primary/30 mb-8 green-border-top" />
 
         <div className="grid md:grid-cols-2 gap-8">
-          <ResumoCard id="experiencia" title="Experiência" icon={Briefcase} defaultOpen>
+          <ResumoCard id="experiencia" title="ExperiÃªncia" icon={Briefcase} defaultOpen>
             <div className="space-y-4">
               <div>
-                <p className="text-sm font-semibold text-primary">2022–2024</p>
-                <p className="font-medium mt-1">O Novo Nível</p>
+                <p className="text-sm font-semibold text-primary">2022â€“2024</p>
+                <p className="font-medium mt-1">O Novo NÃ­vel</p>
                 <p className="text-sm text-muted-foreground">Portugal</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Soluções personalizadas para o sucesso do seu negócio.
+                  SoluÃ§Ãµes personalizadas para o sucesso do seu negÃ³cio.
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold text-primary">2020–2022</p>
+                <p className="text-sm font-semibold text-primary">2020â€“2022</p>
                 <p className="font-medium mt-1">Freelancer</p>
                 <p className="text-sm text-muted-foreground">Brasil</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Desenvolvimento de sites e aplicações web para clientes diversos.
+                  Desenvolvimento de sites e aplicaÃ§Ãµes web para clientes diversos.
                 </p>
               </div>
             </div>
@@ -146,18 +150,18 @@ const ResumoSection = () => {
 
           <ResumoCard id="cursos" title="Cursos" icon={GraduationCap}>
             <div>
-              <p className="text-sm font-semibold text-primary">2019–2020</p>
-              <p className="font-medium mt-1">Análise e Desenvolvimento de Sistemas</p>
-              <p className="text-sm text-muted-foreground">Barra Funda – São Paulo</p>
+              <p className="text-sm font-semibold text-primary">2019â€“2020</p>
+              <p className="font-medium mt-1">AnÃ¡lise e Desenvolvimento de Sistemas</p>
+              <p className="text-sm text-muted-foreground">Barra Funda â€” SÃ£o Paulo</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Soluções personalizadas para o sucesso do seu negócio.
+                SoluÃ§Ãµes personalizadas para o sucesso do seu negÃ³cio.
               </p>
             </div>
           </ResumoCard>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-10">
-          <ResumoCard id="codificacao" title="Codificação" icon={Code2}>
+          <ResumoCard id="codificacao" title="CodificaÃ§Ã£o" icon={Code2}>
             <div className="grid grid-cols-2 gap-6">
               {codingSkills.map((s) => (
                 <CircularProgress key={s.name} pct={s.pct} label={s.name} />
@@ -169,7 +173,7 @@ const ResumoSection = () => {
             <ul className="space-y-3">
               {conhecimentos.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <span className="text-primary mt-0.5">?</span>
+                  <span className="text-primary mt-0.5">âœ“</span>
                   {item}
                 </li>
               ))}
