@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Globe, ShieldCheck, Search, Image, ShoppingCart, Database } from "lucide-react";
+import { Globe, Image, ShoppingCart } from "lucide-react";
 import { useRef } from "react";
 
 const fadeUp = {
@@ -35,28 +35,10 @@ const services = [
     items: ["WooCommerce / Shopify", "Gateway de pagamento", "Catálogo de produtos", "Painel de gestão"],
   },
   {
-    title: "Segurança",
-    price: "A combinar",
-    icon: ShieldCheck,
-    items: ["Certificado SSL", "Firewall WAF", "Backups automáticos", "Monitorização 24/7"],
-  },
-  {
-    title: "SEO",
-    price: "A combinar",
-    icon: Search,
-    items: ["Pesquisa de palavras-chave", "Otimização on-page", "Google Analytics", "Relatórios mensais"],
-  },
-  {
     title: "Edição de Imagem",
     price: "A combinar",
     icon: Image,
     items: ["Fotos de produto", "Banners e capas", "Social media kit", "Retoque profissional"],
-  },
-  {
-    title: "Base de Dados",
-    price: "A combinar",
-    icon: Database,
-    items: ["Design de esquema", "API REST", "Backups automáticos", "Documentação técnica"],
   },
 ];
 
@@ -134,21 +116,17 @@ const SobreSection = () => {
           Planos &amp; Serviços
         </motion.h3>
 
-        <div className="relative">
-          {/* Left fade */}
+        {/* Stretch the relative wrapper to glass-card edges so gradients sit at the border */}
+        <div className="relative -mx-6 md:-mx-8">
+          {/* Right fade only — left side is the natural start */}
           <div
-            className="absolute left-0 top-0 bottom-3 w-10 z-10 pointer-events-none"
-            style={{ background: "linear-gradient(to right, hsl(var(--card)), transparent)" }}
-          />
-          {/* Right fade */}
-          <div
-            className="absolute right-0 top-0 bottom-3 w-10 z-10 pointer-events-none"
+            className="absolute right-0 top-0 bottom-3 w-14 z-10 pointer-events-none"
             style={{ background: "linear-gradient(to left, hsl(var(--card)), transparent)" }}
           />
 
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto pb-3 -mx-6 px-6 scrollbar-hide snap-x snap-mandatory"
+            className="flex gap-4 overflow-x-auto pb-3 px-6 md:px-8 scrollbar-hide snap-x snap-mandatory"
           >
             {services.map((service, i) => (
               <motion.div
