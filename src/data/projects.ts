@@ -28,7 +28,7 @@ export const projects: Project[] = [
     challenges:
       "O maior desafio técnico foi o upload de vídeos de grandes dimensões para o hero, que causava erro 413 no servidor. Resolvemos integrando o upload diretamente no Supabase Storage com feedback visual em tempo real para o administrador.",
     gallery: [
-      { type: "image", url: "https://images.unsplash.com/photo-1585747860019-8083262d40e8?w=800", alt: "Interior da barbearia" },
+      { type: "image", url: "/projects/barbearia-mockup.jpg", alt: "Barbearia Of Brothers — site mobile" },
       { type: "image", url: "https://images.unsplash.com/photo-1503951914875-452b59e3bb21?w=800", alt: "Corte de cabelo" },
     ],
     technologies: [
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     challenges:
       "O desafio foi criar uma experiência visual que valorizasse a arte sem sobrecarregar a interface, mantendo a loja funcional e o processo de checkout simples para todos os perfis de utilizador.",
     gallery: [
-      { type: "image", url: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800", alt: "Galeria de arte" },
+      { type: "image", url: "/projects/mimiart-mockup.jpg", alt: "MimiArt — loja mobile" },
       { type: "image", url: "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800", alt: "Loja de arte online" },
     ],
     technologies: [
