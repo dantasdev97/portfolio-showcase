@@ -103,47 +103,42 @@ const ProjectDetail = () => {
         </div>
 
         {/* Content */}
-        <div className="p-6 md:p-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-heading font-bold">{project.title}</h1>
-              <div className="flex gap-2 mt-3 flex-wrap">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 rounded-full bg-primary/15 text-primary font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+        <div className="p-6 md:p-8 flex flex-col gap-6">
+          {/* Title + tags */}
+          <div>
+            <h1 className="text-2xl md:text-3xl font-heading font-bold">{project.title}</h1>
+            <div className="flex gap-2 mt-3 flex-wrap">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-3 py-1 rounded-full bg-primary/15 text-primary font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:brightness-110 transition-all shrink-0"
-              >
-                <ExternalLink size={16} />
-                Ver Projeto ao Vivo
-              </a>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-4 leading-relaxed">
+            <p className="text-foreground/90 whitespace-pre-line">{project.fullDescription}</p>
+            {project.challenges && (
+              <p className="text-sm text-foreground/70 italic border-l-2 border-primary/30 pl-4">
+                {project.challenges}
+              </p>
             )}
           </div>
 
-          <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
-            <p>{project.fullDescription}</p>
-            {project.challenges && <p className="text-sm italic">{project.challenges}</p>}
-          </div>
-
-          {/* Technologies */}
-          <div className="mt-8">
-            <h3 className="text-lg font-heading font-semibold mb-4">Tecnologias usadas:</h3>
-            <div className="flex gap-4 flex-wrap">
+          {/* Technologies — horizontal scroll */}
+          <div>
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+              Tecnologias
+            </h3>
+            <div className="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
               {project.technologies.map((tech) => (
                 <div
                   key={tech.name}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/60 border border-border"
+                  className="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/60 border border-border"
                 >
                   <TechIcon src={tech.iconSrc} alt={tech.name} className="w-5 h-5" />
                   <span className="text-sm font-medium">{tech.name}</span>
@@ -151,6 +146,19 @@ const ProjectDetail = () => {
               ))}
             </div>
           </div>
+
+          {/* Live button — bottom */}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:brightness-110 transition-all"
+            >
+              <ExternalLink size={16} />
+              Ver Projeto ao Vivo
+            </a>
+          )}
         </div>
       </motion.div>
     </div>
