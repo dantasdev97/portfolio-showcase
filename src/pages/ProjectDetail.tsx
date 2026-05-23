@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { useState } from "react";
 import TechIcon from "@/components/TechIcon";
+import Seo from "@/components/Seo";
+import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +16,7 @@ const ProjectDetail = () => {
   if (!project) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <Seo title="Projeto não encontrado | Augusto Dantas" path="/" noindex />
         <div className="text-center">
           <p className="text-muted-foreground mb-4">Projeto não encontrado.</p>
           <button onClick={() => navigate("/")} className="text-primary font-medium">
@@ -24,8 +27,37 @@ const ProjectDetail = () => {
     );
   }
 
+  const projectPath = `/projeto/${project.id}`;
+  const heroImage = project.gallery[0]?.url ?? "/perfil.jpg";
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.title,
+      description: project.desc,
+      url: absoluteUrl(projectPath),
+      image: absoluteUrl(heroImage),
+      keywords: project.tags.join(", "),
+      creator: { "@type": "Person", name: SITE_NAME, url: SITE_URL },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Início", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: project.title, item: absoluteUrl(projectPath) },
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen py-8 px-4 max-w-[900px] mx-auto">
+      <Seo
+        title={`${project.title} | Augusto Dantas`}
+        description={project.desc}
+        path={projectPath}
+        jsonLd={jsonLd}
+      />
       {/* Back button */}
       <motion.button
         initial={{ opacity: 0, x: -20 }}

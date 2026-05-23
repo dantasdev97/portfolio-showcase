@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
+import Seo from "@/components/Seo";
+import { DEFAULT_TITLE, personJsonLd } from "@/lib/seo";
 import PortfolioSidebar, { MobileNav } from "@/components/PortfolioSidebar";
 import ProfileCard from "@/components/ProfileCard";
 import ResumoSection from "@/components/sections/ResumoSection";
@@ -62,6 +64,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <Seo title={DEFAULT_TITLE} path="/" jsonLd={personJsonLd} />
       <MobileNav activeSection={activeSection} onSelect={handleSelect} />
 
       <div className="flex justify-center">
