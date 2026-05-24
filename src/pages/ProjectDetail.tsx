@@ -1,11 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { useState } from "react";
 import TechIcon from "@/components/TechIcon";
 import Seo from "@/components/Seo";
 import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
+
+function scoreColor(n: number): string {
+  return n >= 90 ? "hsl(var(--primary))" : n >= 50 ? "#e3b341" : "#f25555";
+}
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -178,6 +182,47 @@ const ProjectDetail = () => {
               ))}
             </div>
           </div>
+
+          {/* Performance & Segurança */}
+          {(project.pagespeed?.mobile != null ||
+            project.pagespeed?.desktop != null ||
+            project.sslValid) && (
+            <div>
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                Performance &amp; Segurança
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {project.pagespeed?.mobile != null && (
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/60 border border-border">
+                    <span className="text-sm text-muted-foreground">PageSpeed Mobile</span>
+                    <span
+                      className="text-base font-bold"
+                      style={{ color: scoreColor(project.pagespeed.mobile) }}
+                    >
+                      {project.pagespeed.mobile}
+                    </span>
+                  </div>
+                )}
+                {project.pagespeed?.desktop != null && (
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/60 border border-border">
+                    <span className="text-sm text-muted-foreground">PageSpeed Desktop</span>
+                    <span
+                      className="text-base font-bold"
+                      style={{ color: scoreColor(project.pagespeed.desktop) }}
+                    >
+                      {project.pagespeed.desktop}
+                    </span>
+                  </div>
+                )}
+                {project.sslValid && (
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary/60 border border-border text-primary">
+                    <ShieldCheck size={16} />
+                    <span className="text-sm font-medium">SSL válido</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Live button — bottom */}
           {project.liveUrl && (

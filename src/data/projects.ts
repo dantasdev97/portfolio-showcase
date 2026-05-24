@@ -11,6 +11,8 @@ export interface Project {
   liveUrl?: string;
   gallery: { type: "image" | "video"; url: string; alt?: string; fallback?: string }[];
   technologies: { name: string; iconSrc: string }[];
+  pagespeed?: { mobile: number | null; desktop: number | null };
+  sslValid?: boolean;
 }
 
 export const categories = ["Todos", "Código", "Vídeos"];
