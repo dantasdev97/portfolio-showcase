@@ -1,5 +1,6 @@
 import { MapPin, Mail, Phone, Clock, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const contactRows = [
   { icon: Mail, label: "Email", value: "daantadev@gmail.com" },
@@ -105,6 +106,15 @@ const ContatoSection = () => {
             Enviar
           </button>
         </form>
+
+        {/* Legal footer */}
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} Augusto Dantas. Todos os direitos reservados.</p>
+          <div className="flex items-center gap-4">
+            <Link to="/termos" className="hover:text-primary transition-colors">Termos de Serviço</Link>
+            <Link to="/privacidade" className="hover:text-primary transition-colors">Política de Privacidade</Link>
+          </div>
+        </div>
       </div>
     </section>
   );
