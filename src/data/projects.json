@@ -84,16 +84,5 @@
         "iconSrc": "https://cdn.simpleicons.org/figma/ffffff"
       }
     ]
-  },
-  {
-    "id": "teste",
-    "title": "teste",
-    "category": "Código",
-    "tags": [],
-    "desc": "asdasdasd",
-    "fullDescription": "asdasdasd",
-    "liveUrl": "asasd",
-    "gallery": [],
-    "technologies": []
   }
 ]
