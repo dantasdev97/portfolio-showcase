@@ -183,6 +183,35 @@ const ProjectDetail = () => {
             </div>
           </div>
 
+          {/* Parcerias (Clientes) */}
+          {project.clients && project.clients.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                Parcerias
+              </h3>
+              <div className="flex gap-3 flex-wrap">
+                {project.clients.map((client) => (
+                  <div
+                    key={client.name}
+                    className="flex flex-col items-center gap-2 px-4 py-3 rounded-lg bg-secondary/60 border border-border"
+                  >
+                    {client.logoUrl && (
+                      <img
+                        src={client.logoUrl}
+                        alt={client.name}
+                        className="h-8 w-auto object-contain"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                    )}
+                    <span className="text-sm font-medium text-foreground/90">{client.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Performance & Segurança */}
           {(project.pagespeed?.mobile != null ||
             project.pagespeed?.desktop != null ||
