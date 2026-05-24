@@ -12,7 +12,13 @@
     "fullDescription": "Transformámos um site Next.js 16 em branco numa presença digital completa para a Barbearia Of Brothers em Leiria. O projeto cobre desde o detalhe visual — animações premium com Framer Motion em todos os botões e scroll horizontal nos produtos para mobile — até à infraestrutura robusta com Supabase (PostgreSQL, Storage, Auth) e deploy contínuo na Vercel.\n\nImplementámos SEO local avançado: sitemap dinâmico, metadados por página, schema BarberShop com avaliações e morada, e título otimizado para \"Barbearia em Leiria\". O painel de admin suporta upload de vídeos para o hero com barra de progresso em tempo real, sem os limites do servidor. A conformidade RGPD foi tratada a sério — o GA4 só ativa após consentimento, com banner moderno e páginas legais em português.\n\nBotões de partilha social (WhatsApp, Facebook, Pinterest) em cada serviço, com imagem e nome pré-preenchidos. Para fechar, uma auditoria de segurança completa corrigiu open redirect no login, adicionou todos os headers HTTP incluindo Content-Security-Policy, e levou a nota do site de D para A+ no SecurityHeaders.com.",
     "challenges": "O maior desafio técnico foi o upload de vídeos de grandes dimensões para o hero, que causava erro 413 no servidor. Resolvemos integrando o upload diretamente no Supabase Storage com feedback visual em tempo real para o administrador.",
     "liveUrl": "https://barbeariaofbrothers.pt",
-    "gallery": [],
+    "gallery": [
+      {
+        "type": "image",
+        "url": "https://owwj6nyigpfam4nn.public.blob.vercel-storage.com/projetos/barbearia-mockup-WVTxC1siv0fVGR7FRyBXOKPyllFLER.jpeg",
+        "alt": "Barbearia Of Brothers"
+      }
+    ],
     "technologies": [
       {
         "name": "Next.js",
