@@ -21,6 +21,7 @@ interface Plano {
 interface Props {
   planos: Plano[];
   defaultPlanoKey?: string;
+  defaultAddons?: string[];
   onClose: () => void;
 }
 
@@ -44,9 +45,16 @@ type FormData = z.infer<typeof schema>;
 
 type State = "idle" | "sending" | "success" | "error";
 
-export default function OrcamentoModal({ planos, defaultPlanoKey, onClose }: Props) {
+export default function OrcamentoModal({ planos, defaultPlanoKey, defaultAddons = [], onClose }: Props) {
   const [state, setState] = useState<State>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [addonsSel, setAddonsSel] = useState<string[]>(defaultAddons);
+
+  function toggleAddon(text: string) {
+    setAddonsSel((prev) =>
+      prev.includes(text) ? prev.filter((a) => a !== text) : [...prev, text]
+    );
+  }
 
   const {
     register,
@@ -74,6 +82,7 @@ export default function OrcamentoModal({ planos, defaultPlanoKey, onClose }: Pro
           email: data.email || undefined,
           telefone: data.telefone || undefined,
           plano_key: data.plano_key || undefined,
+          addons_sel: addonsSel.length > 0 ? addonsSel : undefined,
           mensagem: data.mensagem || undefined,
         }),
       });
@@ -243,18 +252,30 @@ export default function OrcamentoModal({ planos, defaultPlanoKey, onClose }: Pro
                     />
                   </div>
                   {selectedPlano && selectedPlano.addons.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-2">
-                      {selectedPlano.addons.map((a) => (
-                        <span
-                          key={a.text}
-                          className="text-[11px] px-2.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary/80 font-medium"
-                        >
-                          + {a.text}
-                          {a.preco != null && a.preco > 0 && (
-                            <span className="ml-1 text-primary font-bold">€{a.preco}</span>
-                          )}
-                        </span>
-                      ))}
+                    <div className="mt-2">
+                      <p className="text-[11px] text-muted-foreground mb-1.5">Extras opcionais:</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedPlano.addons.map((a) => {
+                          const active = addonsSel.includes(a.text);
+                          return (
+                            <button
+                              key={a.text}
+                              type="button"
+                              onClick={() => toggleAddon(a.text)}
+                              className={`text-[11px] px-2.5 py-1 rounded-full border flex items-center gap-1 transition-all ${
+                                active
+                                  ? "bg-primary/20 border-primary text-primary font-semibold"
+                                  : "bg-secondary/40 border-border text-muted-foreground hover:border-primary/40"
+                              }`}
+                            >
+                              {active ? "✓" : "+"} {a.text}
+                              {a.preco != null && a.preco > 0 && (
+                                <span className={`ml-0.5 font-bold ${active ? "text-primary" : ""}`}>€{a.preco}</span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>

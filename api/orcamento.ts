@@ -21,6 +21,7 @@ interface OrcamentoEntry {
   cliente_email?: string;
   cliente_telefone?: string;
   plano_key?: string;
+  addons_sel?: string[];
   mensagem?: string;
   created_at: string;
 }
@@ -75,6 +76,7 @@ export default async function handler(req: Request): Promise<Response> {
     ...(body.email && typeof body.email === "string" ? { cliente_email: body.email.trim() } : {}),
     ...(body.telefone && typeof body.telefone === "string" ? { cliente_telefone: body.telefone.trim() } : {}),
     ...(body.plano_key && typeof body.plano_key === "string" ? { plano_key: body.plano_key } : {}),
+    ...(Array.isArray(body.addons_sel) && body.addons_sel.length > 0 ? { addons_sel: body.addons_sel as string[] } : {}),
     ...(body.mensagem && typeof body.mensagem === "string" ? { mensagem: body.mensagem.trim() } : {}),
     created_at: new Date().toISOString(),
   };

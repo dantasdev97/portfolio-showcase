@@ -31,6 +31,19 @@ const planos: Plano[] = [...(planosData as Plano[])].sort((a, b) => a.ordem - b.
 const PricingCard = () => {
   const [index, setIndex] = useState(planos.length - 1);
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+
+  // Reset selected addons when plan changes
+  function selectPlan(i: number) {
+    setIndex(i);
+    setSelectedAddons([]);
+  }
+
+  function toggleAddon(text: string) {
+    setSelectedAddons((prev) =>
+      prev.includes(text) ? prev.filter((a) => a !== text) : [...prev, text]
+    );
+  }
 
   const plano = planos[index];
   const pct = planos.length > 1 ? (index / (planos.length - 1)) * 100 : 100;
@@ -88,7 +101,7 @@ const PricingCard = () => {
           <button
             key={p.key}
             type="button"
-            onClick={() => setIndex(i)}
+            onClick={() => selectPlan(i)}
             className={`text-[11px] sm:text-xs font-heading font-semibold uppercase tracking-wide py-1.5 rounded-lg transition-all ${
               i === index
                 ? "text-primary"
@@ -127,18 +140,39 @@ const PricingCard = () => {
 
       {/* Add-ons */}
       {plano.addons.length > 0 && (
-        <div className="flex flex-wrap gap-2 mt-4">
-          {plano.addons.map((a) => (
-            <span
-              key={a.text}
-              className="text-xs px-3 py-1 rounded-full bg-secondary/60 border border-border text-muted-foreground flex items-center gap-1"
-            >
-              + {a.text}
-              {a.preco != null && a.preco > 0 && (
-                <span className="text-primary font-semibold ml-1">€{a.preco}</span>
-              )}
-            </span>
-          ))}
+        <div className="mt-4">
+          <p className="text-[11px] text-muted-foreground uppercase tracking-wide mb-2">
+            Extras opcionais — clica para selecionar
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {plano.addons.map((a) => {
+              const active = selectedAddons.includes(a.text);
+              return (
+                <button
+                  key={a.text}
+                  type="button"
+                  onClick={() => toggleAddon(a.text)}
+                  className={`text-xs px-3 py-1.5 rounded-full border flex items-center gap-1 transition-all duration-150 ${
+                    active
+                      ? "bg-primary/20 border-primary text-primary font-semibold"
+                      : "bg-secondary/60 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                  }`}
+                >
+                  {active ? "✓" : "+"} {a.text}
+                  {a.preco != null && a.preco > 0 && (
+                    <span className={`ml-1 font-semibold ${active ? "text-primary" : "text-muted-foreground"}`}>
+                      €{a.preco}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+          {selectedAddons.length > 0 && (
+            <p className="text-[11px] text-primary mt-2">
+              {selectedAddons.length} addon{selectedAddons.length > 1 ? "s" : ""} selecionado{selectedAddons.length > 1 ? "s" : ""}
+            </p>
+          )}
         </div>
       )}
 
@@ -159,6 +193,7 @@ const PricingCard = () => {
           <OrcamentoModal
             planos={planos}
             defaultPlanoKey={plano.key}
+            defaultAddons={selectedAddons}
             onClose={() => setModalOpen(false)}
           />
         )}
