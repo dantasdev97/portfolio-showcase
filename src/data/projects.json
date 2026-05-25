@@ -90,9 +90,15 @@
         "iconSrc": "https://cdn.simpleicons.org/figma/ffffff"
       }
     ],
+    "pagespeed": {
+      "mobile": 98,
+      "desktop": 98
+    },
+    "sslValid": true,
     "clients": [
       {
-        "name": "MimiArt"
+        "name": "Raquel Silva",
+        "logoUrl": "https://owwj6nyigpfam4nn.public.blob.vercel-storage.com/projetos/favicon_mimiart-oj7okIQ19TPitASvSzExdiugekfEdD.png"
       }
     ]
   }
