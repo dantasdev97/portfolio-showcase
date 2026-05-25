@@ -1,5 +1,5 @@
 /**
- * Vercel Serverless Function — POST /api/orcamento
+ * Vercel Edge Function — POST /api/orcamento
  *
  * Recebe uma submissão do formulário de orçamento e guarda em
  * src/data/orcamentos.json no repositório GitHub via API.
@@ -9,6 +9,8 @@
  *
  * O repositório e owner estão hardcoded (mesmo repo onde esta função vive).
  */
+
+export const config = { runtime: "edge" };
 
 const GITHUB_OWNER = "dantasdev97";
 const GITHUB_REPO = "portfolio-showcase";
