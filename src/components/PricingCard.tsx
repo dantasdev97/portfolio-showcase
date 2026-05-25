@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, FileText } from "lucide-react";
-import planosData from "@/data/planos.json";
+import planosDataFallback from "@/data/planos.json";
 import OrcamentoModal from "@/components/OrcamentoModal";
 
 interface PlanoAddon {
@@ -26,12 +26,27 @@ const TAB_LABELS: Record<string, string> = {
   app: "App / Auto.",
 };
 
-const planos: Plano[] = [...(planosData as Plano[])].sort((a, b) => a.ordem - b.ordem);
+const FALLBACK: Plano[] = [...(planosDataFallback as Plano[])].sort((a, b) => a.ordem - b.ordem);
 
 const PricingCard = () => {
-  const [index, setIndex] = useState(planos.length - 1);
+  const [planos, setPlanos] = useState<Plano[]>(FALLBACK);
+  const [index, setIndex] = useState(FALLBACK.length - 1);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+
+  // Busca preços actualizados em runtime (sem depender de rebuild do Vercel)
+  useEffect(() => {
+    fetch("/api/planos")
+      .then((r) => r.json())
+      .then((data: Plano[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          const sorted = [...data].sort((a, b) => a.ordem - b.ordem);
+          setPlanos(sorted);
+          setIndex(sorted.length - 1);
+        }
+      })
+      .catch(() => {/* silently use fallback */});
+  }, []);
 
   // Reset selected addons when plan changes
   function selectPlan(i: number) {
