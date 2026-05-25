@@ -1,0 +1,15 @@
+[
+  {
+    "id": "c1613053-bbcd-440e-840e-2d7aa816da30",
+    "cliente_nome": "AUGUSTO DANTAS",
+    "cliente_email": "daantasdev@gmail.com",
+    "cliente_telefone": "+351913821065",
+    "plano_key": "app",
+    "addons_sel": [
+      "SEO Pro",
+      "Blog completo"
+    ],
+    "mensagem": "o preço n ta dinamico",
+    "created_at": "2026-05-25T16:55:35.849Z"
+  }
+]
