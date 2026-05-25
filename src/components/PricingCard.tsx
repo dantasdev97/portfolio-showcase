@@ -1,80 +1,51 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, MessageCircle } from "lucide-react";
+import { Check, FileText } from "lucide-react";
+import planosData from "@/data/planos.json";
+import OrcamentoModal from "@/components/OrcamentoModal";
 
-interface Feature {
-  label: string;
-  novo?: boolean;
+interface PlanoAddon {
+  text: string;
+  preco?: number;
 }
 
-interface Tier {
-  tab: string;
-  title: string;
-  price: number;
-  features: Feature[];
-  addons: string[];
+interface Plano {
+  key: string;
+  name: string;
+  preco_base: number;
+  descricao: string;
+  features: { text: string; novo?: boolean }[];
+  addons: PlanoAddon[];
+  ordem: number;
 }
 
-const tiers: Tier[] = [
-  {
-    tab: "Landing",
-    title: "Landing Page",
-    price: 170,
-    features: [
-      { label: "Design responsivo" },
-      { label: "SEO básico incluído" },
-      { label: "Formulário de contacto" },
-      { label: "Até 5 páginas" },
-    ],
-    addons: ["SEO Pro", "Blog completo"],
-  },
-  {
-    tab: "Loja Online",
-    title: "Loja Online",
-    price: 300,
-    features: [
-      { label: "Tudo da Landing Page" },
-      { label: "WooCommerce / Shopify" },
-      { label: "Gateway de pagamento" },
-      { label: "Catálogo de produtos" },
-      { label: "Painel de gestão" },
-    ],
-    addons: ["SEO Pro", "Multi-idioma"],
-  },
-  {
-    tab: "App / Auto.",
-    title: "App / Automação",
-    price: 650,
-    features: [
-      { label: "Tudo do Loja Online" },
-      { label: "Workflow IA / n8n", novo: true },
-      { label: "Integrações via MCP", novo: true },
-      { label: "Painel custom", novo: true },
-      { label: "Suporte prioritário", novo: true },
-      { label: "Multi-idioma incluído", novo: true },
-    ],
-    addons: ["SEO Pro", "Blog completo", "Multi-idioma", "Integração IA"],
-  },
-];
+// Tab label mapping (short names for the tab bar)
+const TAB_LABELS: Record<string, string> = {
+  landing: "Landing",
+  loja: "Loja Online",
+  app: "App / Auto.",
+};
+
+const planos: Plano[] = [...(planosData as Plano[])].sort((a, b) => a.ordem - b.ordem);
 
 const PricingCard = () => {
-  const [index, setIndex] = useState(2);
-  const tier = tiers[index];
-  const pct = (index / (tiers.length - 1)) * 100;
+  const [index, setIndex] = useState(planos.length - 1);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const waLink = `https://wa.me/351913821065?text=${encodeURIComponent(
-    `Olá Augusto! Tenho interesse no plano ${tier.title} (a partir de €${tier.price}).`
-  )}`;
+  const plano = planos[index];
+  const pct = planos.length > 1 ? (index / (planos.length - 1)) * 100 : 100;
+
+  if (!plano) return null;
 
   return (
-    <div>
+    <>
       {/* Price */}
       <div className="text-center">
         <p className="text-[11px] tracking-[0.2em] text-muted-foreground font-medium">A PARTIR DE</p>
         <div className="h-[68px] flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.p
-              key={tier.price}
+              key={plano.preco_base}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -18 }}
@@ -82,11 +53,11 @@ const PricingCard = () => {
               className="text-5xl font-heading font-bold text-primary"
               style={{ textShadow: "0 0 28px hsl(145 100% 45% / 0.4)" }}
             >
-              €{tier.price}
+              €{plano.preco_base}
             </motion.p>
           </AnimatePresence>
         </div>
-        <p className="text-sm text-muted-foreground -mt-1">{tier.title}</p>
+        <p className="text-sm text-muted-foreground -mt-1">{plano.name}</p>
       </div>
 
       {/* Slider */}
@@ -102,7 +73,7 @@ const PricingCard = () => {
         <input
           type="range"
           min={0}
-          max={tiers.length - 1}
+          max={planos.length - 1}
           step={1}
           value={index}
           onChange={(e) => setIndex(Number(e.target.value))}
@@ -112,10 +83,10 @@ const PricingCard = () => {
       </div>
 
       {/* Tabs */}
-      <div className="grid grid-cols-3 gap-2 mt-5">
-        {tiers.map((t, i) => (
+      <div className={`grid gap-2 mt-5`} style={{ gridTemplateColumns: `repeat(${planos.length}, 1fr)` }}>
+        {planos.map((p, i) => (
           <button
-            key={t.tab}
+            key={p.key}
             type="button"
             onClick={() => setIndex(i)}
             className={`text-[11px] sm:text-xs font-heading font-semibold uppercase tracking-wide py-1.5 rounded-lg transition-all ${
@@ -124,7 +95,7 @@ const PricingCard = () => {
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {t.tab}
+            {TAB_LABELS[p.key] ?? p.name}
           </button>
         ))}
       </div>
@@ -132,9 +103,9 @@ const PricingCard = () => {
       {/* Features */}
       <div className="mt-4 space-y-2">
         <AnimatePresence mode="popLayout">
-          {tier.features.map((f, i) => (
+          {plano.features.map((f, i) => (
             <motion.div
-              key={`${tier.title}-${f.label}`}
+              key={`${plano.key}-${f.text}`}
               layout
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -145,7 +116,7 @@ const PricingCard = () => {
               <span className="w-5 h-5 rounded-full bg-primary flex items-center justify-center shrink-0">
                 <Check className="text-primary-foreground" size={13} strokeWidth={3} />
               </span>
-              <span className="text-sm flex-1">{f.label}</span>
+              <span className="text-sm flex-1">{f.text}</span>
               {f.novo && (
                 <span className="text-[10px] font-heading font-bold tracking-wide text-primary">NOVO</span>
               )}
@@ -155,29 +126,44 @@ const PricingCard = () => {
       </div>
 
       {/* Add-ons */}
-      <div className="flex flex-wrap gap-2 mt-4">
-        {tier.addons.map((a) => (
-          <span
-            key={a}
-            className="text-xs px-3 py-1 rounded-full bg-secondary/60 border border-border text-muted-foreground"
-          >
-            + {a}
-          </span>
-        ))}
-      </div>
+      {plano.addons.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-4">
+          {plano.addons.map((a) => (
+            <span
+              key={a.text}
+              className="text-xs px-3 py-1 rounded-full bg-secondary/60 border border-border text-muted-foreground flex items-center gap-1"
+            >
+              + {a.text}
+              {a.preco != null && a.preco > 0 && (
+                <span className="text-primary font-semibold ml-1">€{a.preco}</span>
+              )}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* CTA */}
-      <a
-        href={waLink}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
+        onClick={() => setModalOpen(true)}
         className="mt-5 flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-heading font-semibold hover:brightness-110 transition-all"
         style={{ boxShadow: "0 0 22px hsl(145 100% 45% / 0.35)" }}
       >
-        <MessageCircle size={16} />
-        Pedir orçamento
-      </a>
-    </div>
+        <FileText size={16} />
+        Orçamento
+      </button>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {modalOpen && (
+          <OrcamentoModal
+            planos={planos}
+            defaultPlanoKey={plano.key}
+            onClose={() => setModalOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

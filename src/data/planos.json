@@ -1,0 +1,59 @@
+[
+  {
+    "key": "landing",
+    "name": "Landing Page",
+    "preco_base": 350,
+    "descricao": "Site profissional de apresentação para o teu negócio.",
+    "features": [
+      { "text": "Design moderno e responsivo" },
+      { "text": "SEO básico incluído" },
+      { "text": "Formulário de contacto" },
+      { "text": "Google Analytics" },
+      { "text": "Otimizado para velocidade" }
+    ],
+    "addons": [
+      { "text": "SEO Pro" },
+      { "text": "Blog completo" }
+    ],
+    "ordem": 0
+  },
+  {
+    "key": "loja",
+    "name": "Loja Online",
+    "preco_base": 500,
+    "descricao": "E-commerce completo para vender os teus produtos online.",
+    "features": [
+      { "text": "Tudo de Landing Page" },
+      { "text": "Produtos ilimitados" },
+      { "text": "Pagamentos integrados" },
+      { "text": "Dashboard de vendas" },
+      { "text": "Gestão de stock" }
+    ],
+    "addons": [
+      { "text": "Multi-idioma" },
+      { "text": "Integração IA" }
+    ],
+    "ordem": 1
+  },
+  {
+    "key": "app",
+    "name": "App / Automação",
+    "preco_base": 650,
+    "descricao": "Aplicação web completa com automação e integrações avançadas.",
+    "features": [
+      { "text": "Tudo de Loja Online" },
+      { "text": "Workflow IA / n8n", "novo": true },
+      { "text": "Integrações via MCP", "novo": true },
+      { "text": "Painel custom", "novo": true },
+      { "text": "Suporte prioritário", "novo": true },
+      { "text": "Multi-idioma incluído", "novo": true }
+    ],
+    "addons": [
+      { "text": "SEO Pro" },
+      { "text": "Blog completo" },
+      { "text": "Multi-idioma" },
+      { "text": "Integração IA" }
+    ],
+    "ordem": 2
+  }
+]
