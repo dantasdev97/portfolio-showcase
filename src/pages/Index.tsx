@@ -83,8 +83,8 @@ const Index = () => {
             <ContatoSection />
           </div>
 
-          {/* Desktop: one section at a time */}
-          <div className="space-y-5 hidden lg:block">
+          {/* Desktop: one section at a time, painel com altura fixa + scroll interno */}
+          <div className="space-y-5 hidden lg:block content-panel">
             {sectionContent}
           </div>
         </div>

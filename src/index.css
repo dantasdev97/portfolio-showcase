@@ -85,4 +85,10 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Painel de conteúdo padronizado: altura fixa + scroll interno no desktop.
+     6rem = pt-10 (2.5rem) + pb-12 (3rem) do contentor + folga, p/ evitar scroll duplo. */
+  .content-panel {
+    @apply lg:h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-1 scrollbar-hide;
+  }
 }

@@ -5,6 +5,8 @@ import { projects } from "@/data/projects";
 import { useState } from "react";
 import TechIcon from "@/components/TechIcon";
 import Seo from "@/components/Seo";
+import ShareButtons from "@/components/ShareButtons";
+import LikeButton from "@/components/LikeButton";
 import { SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
 
 function scoreColor(n: number): string {
@@ -55,7 +57,7 @@ const ProjectDetail = () => {
   ];
 
   return (
-    <div className="min-h-screen py-8 px-4 max-w-[900px] mx-auto">
+    <div className="min-h-screen px-4 pt-10 pb-12 max-w-[760px] mx-auto">
       <Seo
         title={`${project.title} | Augusto Dantas`}
         description={project.desc}
@@ -77,10 +79,10 @@ const ProjectDetail = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-card overflow-hidden"
+        className="glass-card overflow-hidden lg:h-[calc(100vh-9rem)] lg:flex lg:flex-col"
       >
         {/* Gallery */}
-        <div className="relative">
+        <div className="relative lg:shrink-0">
           {project.gallery.length > 0 && (
             <>
               {project.gallery[activeImg]?.type === "video" ? (
@@ -139,7 +141,7 @@ const ProjectDetail = () => {
         </div>
 
         {/* Content */}
-        <div className="p-6 md:p-8 flex flex-col gap-6">
+        <div className="p-6 md:p-8 flex flex-col gap-6 lg:flex-1 lg:overflow-y-auto scrollbar-hide">
           {/* Title + tags */}
           <div>
             <h1 className="text-2xl md:text-3xl font-heading font-bold">{project.title}</h1>
@@ -183,35 +185,6 @@ const ProjectDetail = () => {
             </div>
           </div>
 
-          {/* Parcerias (Clientes) */}
-          {project.clients && project.clients.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                Parcerias
-              </h3>
-              <div className="flex gap-3 flex-wrap">
-                {project.clients.map((client) => (
-                  <div
-                    key={client.name}
-                    className="flex flex-col items-center gap-2 px-4 py-3 rounded-lg bg-secondary/60 border border-border"
-                  >
-                    {client.logoUrl && (
-                      <img
-                        src={client.logoUrl}
-                        alt={client.name}
-                        className="h-8 w-auto object-contain"
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                        }}
-                      />
-                    )}
-                    <span className="text-sm font-medium text-foreground/90">{client.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Performance & Segurança */}
           {(project.pagespeed?.mobile != null ||
             project.pagespeed?.desktop != null ||
@@ -252,6 +225,21 @@ const ProjectDetail = () => {
               </div>
             </div>
           )}
+
+          {/* Gosto + Partilha */}
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between border-t border-border pt-6">
+            <div>
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                Gostaste?
+              </h3>
+              <LikeButton projectId={project.id} />
+            </div>
+            <ShareButtons
+              url={absoluteUrl(projectPath)}
+              title={project.title}
+              image={absoluteUrl(heroImage)}
+            />
+          </div>
 
           {/* Live button — bottom */}
           {project.liveUrl && (

@@ -1,10 +1,5 @@
 import projectsData from "./projects.json";
 
-export interface Client {
-  name: string;
-  logoUrl?: string;
-}
-
 export interface Project {
   id: string;
   title: string;
@@ -18,7 +13,6 @@ export interface Project {
   technologies: { name: string; iconSrc: string }[];
   pagespeed?: { mobile: number | null; desktop: number | null };
   sslValid?: boolean;
-  clients?: Client[];
 }
 
 export const categories = ["Todos", "Código", "Vídeos"];
