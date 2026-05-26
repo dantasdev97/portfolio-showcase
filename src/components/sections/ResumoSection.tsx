@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import TechIcon from "@/components/TechIcon";
 import { techIcons } from "@/data/techIcons";
+import ClientsSection from "@/components/ClientsSection";
 import ExperienceTimeline from "./ExperienceTimeline";
 import TechProficiency from "./TechProficiency";
 import TechConstellation from "./TechConstellation";
@@ -22,6 +23,9 @@ const ResumoSection = () => {
 
         {/* Technologies marquee */}
         <TechMarquee />
+
+        {/* Clients section — dynamic list from backend */}
+        <ClientsSection />
       </div>
     </section>
   );
