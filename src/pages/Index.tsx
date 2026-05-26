@@ -63,15 +63,15 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Seo title={DEFAULT_TITLE} path="/" jsonLd={personJsonLd} />
       <MobileNav activeSection={activeSection} onSelect={handleSelect} />
 
-      <div className="flex justify-center">
-        <div className="w-full max-w-[1200px] px-4 pt-28 lg:pt-10 pb-12 mx-auto flex flex-col lg:grid lg:grid-cols-[90px_320px_minmax(0,700px)] lg:justify-center gap-6">
+      <div className="flex-1 flex justify-center lg:items-center">
+        <div className="w-full max-w-[1200px] px-4 pt-28 pb-12 lg:py-10 mx-auto flex flex-col lg:grid lg:grid-cols-[90px_320px_minmax(0,700px)] lg:justify-center lg:items-start gap-6">
           <PortfolioSidebar activeSection={activeSection} onSelect={handleSelect} />
 
-          <div className="lg:sticky lg:top-10">
+          <div>
             <ProfileCard />
           </div>
 

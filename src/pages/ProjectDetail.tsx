@@ -57,7 +57,7 @@ const ProjectDetail = () => {
   ];
 
   return (
-    <div className="min-h-screen px-4 pt-10 pb-12 max-w-[760px] mx-auto">
+    <div className="min-h-screen flex flex-col justify-center px-4 py-10 max-w-[760px] mx-auto">
       <Seo
         title={`${project.title} | Augusto Dantas`}
         description={project.desc}
@@ -79,7 +79,7 @@ const ProjectDetail = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-card overflow-hidden lg:h-[calc(100vh-9rem)] lg:flex lg:flex-col"
+        className="glass-card overflow-hidden lg:h-[660px] lg:flex lg:flex-col"
       >
         {/* Gallery */}
         <div className="relative lg:shrink-0">
