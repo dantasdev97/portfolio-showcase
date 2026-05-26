@@ -32,7 +32,7 @@ const SobreSection = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
-        className="glass-card p-6 md:p-8"
+        className="glass-card accent-card p-6 md:p-8"
       >
         <h2 className="text-2xl font-heading font-bold mb-1">Sobre Mim</h2>
         <div className="h-0.5 bg-primary/30 mb-8" />

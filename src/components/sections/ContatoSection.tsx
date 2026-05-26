@@ -11,7 +11,7 @@ const contactRows = [
 const ContatoSection = () => {
   return (
     <section id="contato" className="scroll-mt-32 lg:scroll-mt-8">
-      <div className="glass-card p-6 md:p-8">
+      <div className="glass-card accent-card p-6 md:p-8">
         <h2 className="text-2xl font-heading font-bold mb-1">Contato</h2>
         <div className="h-0.5 bg-primary/30 mb-8" />
 

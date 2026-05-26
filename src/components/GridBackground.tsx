@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 // Posições estáticas das partículas (% do viewport)
 const PARTICLES = [
@@ -13,8 +14,35 @@ const PARTICLES = [
 ];
 
 const GridBackground = () => {
+  // Glow que segue o cursor (suave, via spring — sem re-renders)
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
+  const glowX = useSpring(mouseX, { stiffness: 60, damping: 22, mass: 0.6 });
+  const glowY = useSpring(mouseY, { stiffness: 60, damping: 22, mass: 0.6 });
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [mouseX, mouseY]);
+
   return (
     <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden bg-background pointer-events-none">
+
+      {/* Glow interativo — acompanha o rato */}
+      <motion.div
+        className="absolute w-[360px] h-[360px] rounded-full"
+        style={{
+          x: glowX,
+          y: glowY,
+          translateX: "-50%",
+          translateY: "-50%",
+          background: "radial-gradient(circle, hsl(145 100% 45% / 0.10), transparent 65%)",
+        }}
+      />
 
       {/* Noise SVG filter — grain sutil */}
       <svg width="0" height="0" className="absolute">

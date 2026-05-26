@@ -23,7 +23,7 @@ const PortfolioSection = () => {
 
   return (
     <section id="portfolio" className="scroll-mt-32 lg:scroll-mt-8">
-      <div className="glass-card p-6 md:p-8">
+      <div className="glass-card accent-card p-6 md:p-8">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <h2 className="text-2xl font-heading font-bold">Portfólio</h2>
         </div>

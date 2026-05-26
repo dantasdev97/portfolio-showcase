@@ -8,7 +8,7 @@ import TechConstellation from "./TechConstellation";
 const ResumoSection = () => {
   return (
     <section id="resumo" className="scroll-mt-32 lg:scroll-mt-8">
-      <div className="glass-card p-6 md:p-8">
+      <div className="glass-card accent-card p-6 md:p-8">
         <h2 className="text-2xl font-heading font-bold mb-1">Resumo</h2>
         <div className="h-0.5 bg-primary/30 mb-8 green-border-top" />
 

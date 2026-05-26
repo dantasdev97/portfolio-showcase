@@ -63,11 +63,11 @@
 
 @layer utilities {
   .glass-card {
-    background: linear-gradient(
-      145deg,
-      hsl(156 16% 10% / 0.95) 0%,
-      hsl(156 14% 8% / 0.90) 100%
-    );
+    /* Textura: dot-grid verde muito subtil sobre o gradiente base */
+    background-image:
+      radial-gradient(circle at center, hsl(145 100% 45% / 0.035) 1px, transparent 1.5px),
+      linear-gradient(145deg, hsl(156 16% 10% / 0.95) 0%, hsl(156 14% 8% / 0.90) 100%);
+    background-size: 20px 20px, 100% 100%;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     border: 1px solid hsl(var(--border) / 0.7);
@@ -78,9 +78,12 @@
       inset 0 1px 0 hsl(150 20% 96% / 0.05);
   }
 
-  .accent-card {
-    border-left: 2px solid hsl(145 100% 45% / 0.40);
-    border-top: 2px solid hsl(145 100% 45% / 0.40);
+  /* Bordas accent (esq + topo) só no desktop — sidebar, perfil e páginas */
+  @media (min-width: 1024px) {
+    .accent-card {
+      border-left: 3px solid hsl(145 100% 45% / 0.45);
+      border-top: 3px solid hsl(145 100% 45% / 0.45);
+    }
   }
 
   .green-glow {
@@ -107,5 +110,13 @@
      + scroll interno no desktop. */
   .content-panel {
     @apply lg:h-[500px] lg:overflow-y-auto lg:pr-1 scrollbar-hide;
+  }
+
+  /* Degradé leve no fundo do painel scrollável (desktop) — indica mais conteúdo abaixo */
+  @media (min-width: 1024px) {
+    .content-panel {
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 38px), transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 calc(100% - 38px), transparent 100%);
+    }
   }
 }
