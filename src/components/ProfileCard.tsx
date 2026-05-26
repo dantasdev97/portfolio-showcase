@@ -1,14 +1,18 @@
-import { Download, MessageCircle, Instagram, Linkedin, Github } from "lucide-react";
+import { ClipboardList, Instagram, Linkedin, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
 
-const ProfileCard = () => {
+interface ProfileCardProps {
+  onNavigate: (section: string) => void;
+}
+
+const ProfileCard = ({ onNavigate }: ProfileCardProps) => {
   return (
     <motion.div
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
-      className="glass-card overflow-hidden w-full lg:max-w-[320px] shrink-0"
+      className="glass-card accent-card overflow-hidden w-full lg:max-w-[320px] shrink-0"
     >
       {/* Banner */}
       <div className="h-[160px] relative overflow-hidden">
@@ -53,27 +57,17 @@ const ProfileCard = () => {
           ))}
         </div>
 
-        {/* CTA Buttons */}
-        <div className="flex gap-3 mt-5 w-full">
+        {/* CTA Button */}
+        <div className="mt-5 w-full">
           <motion.button
-            whileHover={{ scale: 1.04, boxShadow: "0 0 18px hsl(145 100% 45% / 0.35)" }}
-            whileTap={{ scale: 0.96 }}
-            className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold transition-all"
-          >
-            <Download size={16} />
-            Baixar CV
-          </motion.button>
-          <motion.a
-            href="https://wa.me/351913821065"
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => onNavigate("sobre")}
             whileHover={{ scale: 1.04, boxShadow: "0 0 20px hsl(145 100% 45% / 0.45)" }}
             whileTap={{ scale: 0.96 }}
-            className="flex-1 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold transition-all"
+            className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2.5 text-sm font-semibold transition-all"
           >
-            <MessageCircle size={16} />
-            WhatsApp
-          </motion.a>
+            <ClipboardList size={16} />
+            Faça um Orçamento
+          </motion.button>
         </div>
       </div>
     </motion.div>

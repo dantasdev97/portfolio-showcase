@@ -15,7 +15,7 @@ interface PortfolioSidebarProps {
 
 const PortfolioSidebar = ({ activeSection, onSelect }: PortfolioSidebarProps) => {
   return (
-    <nav className="glass-card p-3 flex-col gap-2 w-[90px] hidden lg:flex lg:sticky lg:top-10 h-fit">
+    <nav className="glass-card accent-card p-3 flex-col gap-2 w-[90px] hidden lg:flex lg:sticky lg:top-10 h-fit">
       <div className="flex items-center justify-center pb-2">
         <div className="w-12 h-12 rounded-full border-2 border-primary bg-secondary overflow-hidden">
           <img src="/perfil.jpg" alt="Foto de perfil" className="w-full h-full object-cover" />

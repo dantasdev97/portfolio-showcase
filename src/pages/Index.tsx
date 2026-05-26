@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Seo from "@/components/Seo";
 import { DEFAULT_TITLE, personJsonLd } from "@/lib/seo";
 import PortfolioSidebar, { MobileNav } from "@/components/PortfolioSidebar";
@@ -12,6 +13,7 @@ const SECTIONS = ["resumo", "sobre", "portfolio", "contato"];
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState("resumo");
+  const [direction, setDirection] = useState(0);
 
   // Track active section via IntersectionObserver on mobile
   useEffect(() => {
@@ -56,7 +58,10 @@ const Index = () => {
         window.scrollTo({ top, behavior: "smooth" });
       }
     } else {
-      // Desktop: switch section and scroll to top
+      // Desktop: switch section with direction-aware animation
+      const prevIdx = SECTIONS.indexOf(activeSection);
+      const nextIdx = SECTIONS.indexOf(id);
+      setDirection(nextIdx >= prevIdx ? 1 : -1);
       setActiveSection(id);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -72,7 +77,7 @@ const Index = () => {
           <PortfolioSidebar activeSection={activeSection} onSelect={handleSelect} />
 
           <div>
-            <ProfileCard />
+            <ProfileCard onNavigate={handleSelect} />
           </div>
 
           {/* Mobile: all sections stacked, scroll-driven */}
@@ -83,10 +88,20 @@ const Index = () => {
             <ContatoSection />
           </div>
 
-          {/* Desktop: one section at a time, painel com altura fixa + scroll interno */}
-          <div className="space-y-5 hidden lg:block content-panel">
-            {sectionContent}
-          </div>
+          {/* Desktop: one section at a time, painel com altura fixa + scroll interno + animação direcional */}
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={activeSection}
+              custom={direction}
+              initial={(dir: number) => ({ opacity: 0, y: dir * 16 })}
+              animate={{ opacity: 1, y: 0 }}
+              exit={(dir: number) => ({ opacity: 0, y: dir * -16 })}
+              transition={{ duration: 0.26, ease: [0.32, 0, 0.67, 0] }}
+              className="hidden lg:block content-panel lg:-mt-1"
+            >
+              {sectionContent}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
